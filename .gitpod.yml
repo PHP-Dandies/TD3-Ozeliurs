@@ -3,7 +3,7 @@ ports:
   onOpen: open-preview
 tasks:
 - name: LAMP
-  init: sudo chmod 777 -R www && docker run -name peaceful_franklin -p "8080:80" -v ${PWD}/www:/app mattrayner/lamp:latest-2004-php8
+  init: sudo chmod 777 -R www && docker run --name peaceful_franklin -p "8080:80" -v ${PWD}/www:/app mattrayner/lamp:latest-2004-php8
 
 - name: Docker Terminal
   init: sleep 120 && docker exec -it peaceful_franklin /bin/bash
