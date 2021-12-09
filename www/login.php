@@ -16,9 +16,9 @@ start_page();
     <div class="card">
         <?php
             if ($_POST["action"] == "login") {
-                $id = $_POST['email'];
+                $mel= $_POST['mail'];
                 $ps = $_POST['pass'];
-                $query = 'SELECT * FROM USER WHERE MAIL='.$id;
+                $query = 'SELECT * FROM USER WHERE MAIL="'.$mel.'";';
                 if(!($dbResult = mysqli_query($dbLink, $query))) {
                     echo 'Erreur de requête<br/>';
                     
@@ -28,6 +28,13 @@ start_page();
                 $dbRow = mysqli_fetch_assoc($dbResult);
                 if ($dbRow["PASS"] == $ps) {
                     echo 'Bienvenue '.$dbRow["MAIL"].'.';
+                    $query = 'UPDATE USER SET NB_CONN = NB_CONN+1 WHERE ID = '.$dbRow["ID"].';';
+                    if(!($dbResult = mysqli_query($dbLink, $query))) {
+                        echo 'Erreur de requête<br/>';
+                        
+                        echo 'Requête : ' . $query . '<br/>';
+                        exit();
+                    }
                 } else {
                     echo "Mauvais mot de passe !!!";
                 }
